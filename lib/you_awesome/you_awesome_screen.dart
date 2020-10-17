@@ -6,11 +6,7 @@ import 'package:demo_blocListener/you_awesome/index.dart';
 class YouAwesomeScreen extends StatefulWidget {
   final Function save;
   final Function refresh;
-  const YouAwesomeScreen({
-    Key key,
-     this.refresh,
-     this.save
-  })  :  super(key: key);
+  const YouAwesomeScreen({Key key, this.refresh, this.save}) : super(key: key);
 
   @override
   YouAwesomeScreenState createState() {
@@ -20,7 +16,11 @@ class YouAwesomeScreen extends StatefulWidget {
 
 class YouAwesomeScreenState extends State<YouAwesomeScreen> {
   YouAwesomeScreenState();
-  UserModel newUser = UserModel(id: '1', email: 'example@gmail.com', first_name: 'Peter2', last_name: 'Watson2');
+  UserModel newUser = UserModel(
+      id: '1',
+      email: 'example@gmail.com',
+      first_name: 'Peter2',
+      last_name: 'Watson2');
   @override
   void initState() {
     super.initState();
@@ -33,42 +33,23 @@ class YouAwesomeScreenState extends State<YouAwesomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<YouAwesomeBloc, YouAwesomeState>(
-      listener: (context, state) {
-        if (state is InitalState) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Sucessfully loaded"),
-            backgroundColor: Theme.of(context).primaryColor,
-          ));
-        }
-        if (state is LoadedState) {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text("Sucessfully Saved"),
-            backgroundColor: Theme.of(context).primaryColor,
-          ));
-        }
-      },
-      child: Container(
+    return Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Center(
-          child: Column(
-            children: [
-              RaisedButton(
-                onPressed: (){
-                  widget.save(newUser);
-                },
-                child: Text("save"),
-              ),
-              RaisedButton(
-                onPressed: (){
-                  widget.refresh();
-                },
-                child: Text("Refresh"),
-              )
-            ]
-          ),
-        )
-      )
-    );
+          child: Column(children: [
+            RaisedButton(
+              onPressed: () {
+                widget.save(newUser);
+              },
+              child: Text("save"),
+            ),
+            RaisedButton(
+              onPressed: () {
+                widget.refresh();
+              },
+              child: Text("Refresh"),
+            )
+          ]),
+        ));
   }
 }
